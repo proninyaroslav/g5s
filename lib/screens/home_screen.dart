@@ -69,9 +69,8 @@ class _HomeState extends State<Home> {
     final bottomNavActiveBlue = const Color(0xFF41A6FF);
 
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     final cardWidth = screenWidth * 0.9;
-    final cardHeight = screenHeight * 0.4; // 40% of screen height
+// 40% of screen height
     final iconSize = cardWidth * 0.15;
 
     return Scaffold(
@@ -157,7 +156,6 @@ class _HomeState extends State<Home> {
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Top white section with icon
                     Container(
@@ -169,37 +167,53 @@ class _HomeState extends State<Home> {
                         color: blueColor,
                       ),
                     ),
+                    Spacer(),
+                    SizedBox(height: 6),
                     // Bottom section with text field (now white)
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.only(
+                          top: 10,
+                          left: 16,
+                          right: 16), // reduced top padding by 6px (was 16)
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: const BorderRadius.vertical(
                           bottom: Radius.circular(8),
                         ),
-                        border: Border(
-                          top: BorderSide(color: Colors.grey[500]!, width: 1),
-                        ),
                       ),
-                      child: TextField(
-                        controller: _controller,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          hintText: 'Введите номер документа',
-                          hintStyle: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w300,
-                            fontSize: 24,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Center(
+                            child: TextField(
+                              controller: _controller,
+                              keyboardType: TextInputType.text,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                hintText: 'Введите номер документа',
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 24,
+                                  color: Colors.grey[500],
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.zero,
+                                alignLabelWithHint: true,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Container(
+                            width: double.infinity,
+                            height: 1,
                             color: Colors.grey[500],
                           ),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.only(top: 16),
-                          alignLabelWithHint: true,
-                        ),
+                        ],
                       ),
                     ),
+                    Spacer(),
                     // Button inside the card with margin
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
