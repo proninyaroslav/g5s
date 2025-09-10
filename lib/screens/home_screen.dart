@@ -83,60 +83,58 @@ class _HomeState extends State<Home> {
         elevation: 0,
         titleSpacing: 0,
         centerTitle: true,
-        title: const Text(
-          'Поиск данных',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w500,
-            fontSize: 18,
-          ),
-        ),
-        leading: GestureDetector(
-          onTap: () => _navigateTo('/splash'),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Guest 5 Stars',
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () => _navigateTo('/splash'),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Icon(
+                    Icons.house_outlined,
+                    color: Colors.white,
+                    size: 31,
+                  ),
+                ),
+              ),
+              const Text(
+                'Поиск данных',
                 style: TextStyle(
-                  color: yellowColor,
+                  color: Colors.white,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),
               ),
-            ),
+              GestureDetector(
+                onTap: _showLanguageDialog,
+                child: Row(
+                  children: [
+                    Text(
+                      _selectedLanguage,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.language,
+                      color: Colors.white,
+                      size: 26,
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        leadingWidth: 140,
-        actions: [
-          GestureDetector(
-            onTap: _showLanguageDialog,
-            child: Row(
-              children: [
-                Text(
-                  _selectedLanguage,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                const Icon(
-                  Icons.language,
-                  color: Colors.white,
-                  size: 26, // Increased by factor of 1.2
-                ),
-                const SizedBox(
-                    width: 21), // Increased by 5px to move elements right
-              ],
-            ),
-          ),
-        ],
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: GestureDetector(
