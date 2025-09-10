@@ -66,11 +66,12 @@ class _HomeState extends State<Home> {
     final yellowColor = const Color(0xFFFACC15);
     final buttonGradientStart = const Color(0xFF2BB9C2);
     final buttonGradientEnd = const Color(0xFF16C9A9);
-    final greyBackgroundColor = const Color(0xFFF1F3FB);
     final bottomNavActiveBlue = const Color(0xFF41A6FF);
 
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final cardWidth = screenWidth * 0.9;
+    final cardHeight = screenHeight * 0.4; // 40% of screen height
     final iconSize = cardWidth * 0.15;
 
     return Scaffold(
@@ -79,63 +80,70 @@ class _HomeState extends State<Home> {
         backgroundColor: blueColor,
         elevation: 0,
         titleSpacing: 0,
-        title: Row(
-          children: [
-            GestureDetector(
-              onTap: () => _navigateTo('/splash'),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  'Guest 5 Stars',
-                  style: TextStyle(
-                    color: yellowColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+        centerTitle: true,
+        title: const Text(
+          'Поиск данных',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+          ),
+        ),
+        leading: GestureDetector(
+          onTap: () => _navigateTo('/splash'),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Guest 5 Stars',
+                style: TextStyle(
+                  color: yellowColor,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
               ),
             ),
-            const SizedBox(width: 16),
-            const Text(
-              'Поиск данных',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            ),
-            const Spacer(),
-            GestureDetector(
-              onTap: _showLanguageDialog,
-              child: Row(
-                children: [
-                  Text(
-                    _selectedLanguage,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.language,
-                    color: Colors.white,
-                    size: 22,
-                  ),
-                  const SizedBox(width: 16),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
+        leadingWidth: 140,
+        actions: [
+          GestureDetector(
+            onTap: _showLanguageDialog,
+            child: Row(
+              children: [
+                Text(
+                  _selectedLanguage,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Icon(
+                  Icons.language,
+                  color: Colors.white,
+                  size: 26, // Increased by factor of 1.2
+                ),
+                const SizedBox(
+                    width: 21), // Increased by 5px to move elements right
+              ],
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Center(
           child: Container(
             width: cardWidth,
+            height: cardHeight,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(6),
               boxShadow: const [
                 BoxShadow(
                   color: Color(0x1A000000),
@@ -145,7 +153,8 @@ class _HomeState extends State<Home> {
               ],
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Top white section with icon
                 Container(
@@ -157,27 +166,34 @@ class _HomeState extends State<Home> {
                     color: blueColor,
                   ),
                 ),
-                // Bottom grey section with text field
+                // Bottom section with text field (now white)
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
-                    color: greyBackgroundColor,
+                    color: Colors.white,
                     borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(12),
+                      bottom: Radius.circular(8),
                     ),
-                    border: const Border(
-                      top: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                    border: Border(
+                      top: BorderSide(color: Colors.grey[500]!, width: 1),
                     ),
                   ),
                   child: TextField(
                     controller: _controller,
                     keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       hintText: 'Введите номер документа',
-                      hintStyle: TextStyle(color: Colors.grey[500]),
+                      hintStyle: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300,
+                        fontSize: 24,
+                        color: Colors.grey[500],
+                      ),
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                      contentPadding: const EdgeInsets.only(top: 16),
+                      alignLabelWithHint: true,
                     ),
                   ),
                 ),
@@ -201,7 +217,12 @@ class _HomeState extends State<Home> {
                         icon: const Icon(Icons.search, color: Colors.white),
                         label: const Text(
                           'Найти',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
@@ -224,7 +245,17 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         currentIndex: 0, // Home/Search tab active
         selectedItemColor: bottomNavActiveBlue,
-        unselectedItemColor: greyBackgroundColor,
+        unselectedItemColor: Colors.grey[500],
+        selectedLabelStyle: const TextStyle(
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
         onTap: (index) {
           if (index == 0) {
             _navigateTo('/search');
@@ -232,6 +263,7 @@ class _HomeState extends State<Home> {
             _navigateTo('/profile');
           }
         },
+        iconSize: 26, // Larger icons proportional to the 18pt font
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
