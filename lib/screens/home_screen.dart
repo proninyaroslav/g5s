@@ -10,8 +10,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final TextEditingController _controller = TextEditingController();
   String _selectedLanguage = 'RU';
+  double formAreaTop = 70; // Move the form area 50 px higher
 
   void _navigateTo(String routeName) {
+    _controller.clear();
     Navigator.pushNamed(context, routeName);
   }
 
@@ -69,6 +71,7 @@ class _HomeState extends State<Home> {
     final bottomNavActiveBlue = const Color(0xFF41A6FF);
 
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final cardWidth = screenWidth * 0.9;
 // 40% of screen height
     final iconSize = cardWidth * 0.15;
@@ -143,6 +146,7 @@ class _HomeState extends State<Home> {
               heightFactor: 0.924, // 92.4% of parent height
               child: Container(
                 width: cardWidth,
+                height: screenHeight * 0.924,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6),
@@ -154,69 +158,26 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                child: Stack(
                   children: [
-                    // Top white section with icon
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: cardWidth * 0.1),
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.description_outlined,
-                        size: iconSize,
-                        color: blueColor,
-                      ),
-                    ),
-                    Spacer(),
-                    SizedBox(height: 6),
-                    // Bottom section with text field (now white)
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(
-                          top: 10,
-                          left: 16,
-                          right: 16), // reduced top padding by 6px (was 16)
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(8),
+                    // Icon at the top
+                    Positioned(
+                      top: cardWidth * 0.1,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Icon(
+                          Icons.description_outlined,
+                          size: iconSize,
+                          color: blueColor,
                         ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(
-                            child: TextField(
-                              controller: _controller,
-                              keyboardType: TextInputType.text,
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                hintText: 'Введите номер документа',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 24,
-                                  color: Colors.grey[500],
-                                ),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.zero,
-                                alignLabelWithHint: true,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: Colors.grey[500],
-                          ),
-                        ],
-                      ),
                     ),
-                    Spacer(),
-                    // Button inside the card with margin
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+                    // Button at the bottom
+                    Positioned(
+                      bottom: 24,
+                      left: 16,
+                      right: 16,
                       child: SizedBox(
                         width: double.infinity,
                         height: 48,
@@ -250,6 +211,62 @@ class _HomeState extends State<Home> {
                               textStyle: const TextStyle(fontSize: 16),
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                    // Form field and grey line centered vertically, 5px higher
+                    Align(
+                      alignment: Alignment(0,
+                          -0.035), // Move up by 5px (approximate for most card heights)
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Center(
+                              child: TextField(
+                                controller: _controller,
+                                autofocus: true,
+                                keyboardType: TextInputType.text,
+                                textAlign: TextAlign.center,
+                                onChanged: (value) {
+                                  final upper = value.toUpperCase();
+                                  if (value != upper) {
+                                    _controller.value =
+                                        _controller.value.copyWith(
+                                      text: upper,
+                                      selection: TextSelection.collapsed(
+                                          offset: upper.length),
+                                    );
+                                  }
+                                },
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 24,
+                                  color: Colors.grey[500],
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'Введите номер документа',
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 24,
+                                    color: Colors.grey[500],
+                                  ),
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.zero,
+                                  alignLabelWithHint: true,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Container(
+                              width: double.infinity,
+                              height: 1,
+                              color: Colors.grey[500],
+                            ),
+                          ],
                         ),
                       ),
                     ),
