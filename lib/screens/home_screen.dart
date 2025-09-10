@@ -137,106 +137,109 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: SafeArea(
-        child: Center(
-          child: Container(
-            width: cardWidth,
-            height: cardHeight,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x1A000000),
-                  blurRadius: 8,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Top white section with icon
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: cardWidth * 0.1),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.description_outlined,
-                    size: iconSize,
-                    color: blueColor,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Center(
+            child: Container(
+              width: cardWidth,
+              height: cardHeight,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x1A000000),
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
                   ),
-                ),
-                // Bottom section with text field (now white)
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(8),
-                    ),
-                    border: Border(
-                      top: BorderSide(color: Colors.grey[500]!, width: 1),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Top white section with icon
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: cardWidth * 0.1),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.description_outlined,
+                      size: iconSize,
+                      color: blueColor,
                     ),
                   ),
-                  child: TextField(
-                    controller: _controller,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: 'Введите номер документа',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w300,
-                        fontSize: 24,
-                        color: Colors.grey[500],
-                      ),
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(top: 16),
-                      alignLabelWithHint: true,
-                    ),
-                  ),
-                ),
-                // Button inside the card with margin
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-                  child: SizedBox(
+                  // Bottom section with text field (now white)
+                  Container(
                     width: double.infinity,
-                    height: 48,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        gradient: LinearGradient(
-                          colors: [buttonGradientStart, buttonGradientEnd],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(8),
                       ),
-                      child: ElevatedButton.icon(
-                        onPressed: () => _navigateTo('/search'),
-                        icon: const Icon(Icons.search, color: Colors.white),
-                        label: const Text(
-                          'Найти',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                      border: Border(
+                        top: BorderSide(color: Colors.grey[500]!, width: 1),
+                      ),
+                    ),
+                    child: TextField(
+                      controller: _controller,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        hintText: 'Введите номер документа',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w300,
+                          fontSize: 24,
+                          color: Colors.grey[500],
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(top: 16),
+                        alignLabelWithHint: true,
+                      ),
+                    ),
+                  ),
+                  // Button inside the card with margin
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: LinearGradient(
+                            colors: [buttonGradientStart, buttonGradientEnd],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
+                        child: ElevatedButton.icon(
+                          onPressed: () => _navigateTo('/search'),
+                          icon: const Icon(Icons.search, color: Colors.white),
+                          label: const Text(
+                            'Найти',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            ),
                           ),
-                          textStyle: const TextStyle(fontSize: 16),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            textStyle: const TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
