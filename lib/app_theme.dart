@@ -53,7 +53,7 @@ class AppTheme {
     fontFamily: fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: textFieldFontSize,
-    color: grey,
+    color: Colors.black87,
   );
   static const TextStyle textFieldHint = TextStyle(
     fontFamily: fontFamily,
