@@ -1,3 +1,7 @@
+// Input Field Style Guide:
+// - Input text color: Colors.black87 (dark)
+// - Input font weight: FontWeight.w400 (normal)
+// - Input font size: 24.0
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -47,7 +51,7 @@ class AppTheme {
   );
   static const TextStyle textField = TextStyle(
     fontFamily: fontFamily,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w400,
     fontSize: textFieldFontSize,
     color: grey,
   );

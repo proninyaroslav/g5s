@@ -10,6 +10,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    // No manual focus logic; rely on TextField's autofocus
+  }
+
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   String _selectedLanguage = 'RU';
@@ -82,48 +88,45 @@ class _HomeState extends State<Home> {
           elevation: 0,
           titleSpacing: 0,
           centerTitle: true,
-          title: Padding(
-            padding: EdgeInsets.fromLTRB(AppTheme.horizontalPadding,
-                AppTheme.verticalPadding, AppTheme.horizontalPadding, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => _navigateTo('/splash'),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Icon(
-                      Icons.house_outlined,
-                      color: Colors.white,
-                      size: AppTheme.iconSizeAppBar,
-                    ),
-                  ),
-                ),
-                const Text(
-                  'Поиск данных',
-                  style: AppTheme.appBarTitle,
-                ),
-                GestureDetector(
-                  onTap: () => _showLanguageDialog(),
-                  child: Row(
-                    children: [
-                      Text(
-                        _selectedLanguage,
-                        style: AppTheme.appBarTitle,
-                      ),
-                      SizedBox(width: 4),
-                      Icon(
-                        Icons.language,
-                        color: Colors.white,
-                        size: AppTheme.iconSizeNav,
-                      ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
-                ),
-              ],
+          leading: Padding(
+            padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+            child: GestureDetector(
+              onTap: () => _navigateTo('/splash'),
+              child: Icon(
+                Icons.house_outlined,
+                color: Colors.white,
+                size: AppTheme.iconSizeAppBar,
+              ),
             ),
           ),
+          title: const Center(
+            child: Text(
+              'Поиск данных',
+              style: AppTheme.appBarTitle,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: AppTheme.horizontalPadding),
+              child: GestureDetector(
+                onTap: () => _showLanguageDialog(),
+                child: Row(
+                  children: [
+                    Text(
+                      _selectedLanguage,
+                      style: AppTheme.appBarTitle,
+                    ),
+                    SizedBox(width: 4),
+                    Icon(
+                      Icons.language,
+                      color: Colors.white,
+                      size: AppTheme.iconSizeNav,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
         body: Center(
           child: FractionallySizedBox(
@@ -212,6 +215,7 @@ class _HomeState extends State<Home> {
                           Center(
                             child: TextField(
                               controller: _controller,
+                              focusNode: _focusNode,
                               autofocus: true,
                               keyboardType: TextInputType.text,
                               textAlign: TextAlign.center,

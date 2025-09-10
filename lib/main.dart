@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home_screen.dart'; // Adjusted import path
+// import 'dart:math' as math; // No longer needed in main.dart
+
+import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/splash',
       routes: {
         '/': (context) => const Home(),
         '/splash': (context) => const SplashScreen(),
@@ -28,22 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Splash')),
-      body: const Center(
-        child: Text(
-          'Splash Screen',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
+// SplashScreen and _StarPainter moved to lib/screens/splash_screen.dart
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

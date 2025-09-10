@@ -1,3 +1,6 @@
+## Design Consistency Rule
+
+- Do not add, change, or embellish design details unless explicitly requested by the user.
 # AI Project Guidelines
 
 This file provides initial prompts, instructions, and best practices for AI models and agents working in this project. It should be read by any AI system or developer before starting work on interfaces, screens, or code.
