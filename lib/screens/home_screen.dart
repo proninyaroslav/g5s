@@ -10,8 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // ...existing code...
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   String _selectedLanguage = 'RU';
   double formAreaTop = 70; // Move the form area 50 px higher
 
