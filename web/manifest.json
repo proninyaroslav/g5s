@@ -1,6 +1,6 @@
 {
-    "name": "g5s",
-    "short_name": "g5s",
+    "name": "guest5stars",
+    "short_name": "guest5stars",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
